@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Create Wedding</title>
+</head>
+<body>
+  <h1>Create Your Wedding Website</h1>
+
+  <form method="POST" action="/create">
+    <input name="bride_name" placeholder="Bride's name" required />
+    <input name="groom_name" placeholder="Groom's name" required />
+
+    <input type="date" name="event_date" required />
+    <input name="location" placeholder="Location" required />
+
+    <input name="slug" placeholder="URL slug (ama-kojo)" required />
+
+    <select name="event_type">
+      <option value="wedding">Wedding</option>
+      <option value="traditional">Traditional</option>
+      <option value="white">White Wedding</option>
+      <option value="both">Traditional + White</option>
+    </select>
+
+    <input name="contact_phone" placeholder="Contact phone" />
+    <input name="contact_email" placeholder="Contact email" />
+
+    <button type="submit">Create Wedding</button>
+  </form>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>RSVP – <%= wedding.bride_name %> & <%= wedding.groom_name %></title>
+</head>
+<body>
+
+<h1>RSVP</h1>
+<p>Fill the form below to reserve your seat</p>
+
+<form method="POST" action="/rsvp/<%= wedding.slug %>">
+
+  <p>
+    <strong>Will you attend?</strong><br />
+    <label><input type="radio" name="attendance" value="yes" required /> Yes</label>
+    <label><input type="radio" name="attendance" value="no" /> No</label>
+    <label><input type="radio" name="attendance" value="maybe" /> Maybe</label>
+  </p>
+
+  <p>
+    <strong>Which events will you attend? (optional)</strong><br />
+    <label><input type="checkbox" name="traditional" value="true" /> Traditional</label><br />
+    <label><input type="checkbox" name="white" value="true" /> White Wedding</label><br />
+    <label><input type="checkbox" name="reception" value="true" /> Reception</label>
+  </p>
+
+  <p>
+    <input name="name" placeholder="Your name" required />
+  </p>
+
+  <p>
+    <input name="phone" placeholder="Phone number" />
+  </p>
+
+  <p>
+    <input
+      type="number"
+      name="guests_count"
+      min="1"
+      value="1"
+      placeholder="Number of people attending"
+    />
+  </p>
+
+  <button type="submit">Submit RSVP</button>
+</form>
+
+</body>
+</html>

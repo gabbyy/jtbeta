@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= wedding.bride_name %> & <%= wedding.groom_name %></title>
+</head>
+<body>
+
+<%
+  const partySection = sections?.find(s => s.type === 'wedding_party');
+  const party = partySection ? partySection.content : null;
+
+  const qnaSection = sections?.find(s => s.type === 'qna');
+  const qna = qnaSection ? qnaSection.content : null;
+%>
+
+
+  <!-- HERO -->
+  <h1>
+    <%= wedding.bride_name %> & <%= wedding.groom_name %>
+  </h1>
+
+  <p>
+    <strong>Date:</strong>
+    <%= wedding.event_date.toDateString() %>
+  </p>
+
+  <p>
+    <strong>Location:</strong>
+    <%= wedding.location %>
+  </p>
+
+  <% 
+    const story = sections?.find(s => s.type === 'story');
+    const events = sections?.find(s => s.type === 'events');
+  %>
+
+  <!-- OUR STORY -->
+  <% if (story && story.content?.body) { %>
+    <hr />
+    <section>
+      <h2><%= story.content.title || 'Our Story' %></h2>
+      <p><%= story.content.body %></p>
+    </section>
+  <% } %>
+
+  <!-- EVENTS -->
+  <% if (events) { %>
+    <hr />
+    <section>
+      <h2>Events</h2>
+
+      <% if (events.content.traditional) { %>
+        <h3>Traditional Wedding</h3>
+        <p><strong>Date:</strong> <%= events.content.traditional.date || '' %></p>
+        <p><strong>Time:</strong> <%= events.content.traditional.time || '' %></p>
+        <p><strong>Venue:</strong> <%= events.content.traditional.venue || '' %></p>
+        <p><strong>Dress Code:</strong> <%= events.content.traditional.dress_code || '' %></p>
+      <% } %>
+
+      <% if (events.content.white) { %>
+        <h3>White Wedding</h3>
+        <p><strong>Date:</strong> <%= events.content.white.date || '' %></p>
+        <p><strong>Time:</strong> <%= events.content.white.time || '' %></p>
+        <p><strong>Venue:</strong> <%= events.content.white.venue || '' %></p>
+        <p><strong>Dress Code:</strong> <%= events.content.white.dress_code || '' %></p>
+      <% } %>
+
+      <% if (events.content.reception) { %>
+        <h3>Reception</h3>
+        <p><strong>Date:</strong> <%= events.content.reception.date || '' %></p>
+        <p><strong>Time:</strong> <%= events.content.reception.time || '' %></p>
+        <p><strong>Venue:</strong> <%= events.content.reception.venue || '' %></p>
+        <p><strong>Dress Code:</strong> <%= events.content.reception.dress_code || '' %></p>
+      <% } %>
+
+    </section>
+
+<!-- WEDDING PARTY -->
+    <% if (party) { %>
+  <hr />
+  <section>
+    <h2>Wedding Party</h2>
+
+    <% if (party.maid_of_honor?.name) { %>
+      <h3>Maid of Honor</h3>
+      <p><strong><%= party.maid_of_honor.name %></strong></p>
+      <p><%= party.maid_of_honor.about %></p>
+    <% } %>
+
+    <% if (party.best_man?.name) { %>
+      <h3>Best Man</h3>
+      <p><strong><%= party.best_man.name %></strong></p>
+      <p><%= party.best_man.about %></p>
+    <% } %>
+
+    <% if (party.bridesmaids?.length) { %>
+      <h3>Bridesmaids</h3>
+      <% party.bridesmaids.forEach(b => { %>
+        <% if (b.name) { %>
+          <p><strong><%= b.name %></strong> – <%= b.about %></p>
+        <% } %>
+      <% }) %>
+    <% } %>
+
+    <% if (party.groomsmen?.length) { %>
+      <h3>Groomsmen</h3>
+      <% party.groomsmen.forEach(g => { %>
+        <% if (g.name) { %>
+          <p><strong><%= g.name %></strong> – <%= g.about %></p>
+        <% } %>
+      <% }) %>
+    <% } %>
+  </section>
+<% } %>
+
+<!-- Q & A -->
+<% if (qna) { %>
+  <hr />
+  <section>
+    <h2>Q & A</h2>
+
+    <p>
+      <strong>Can I bring a plus one?</strong><br />
+      <%= qna.plus_one_allowed ? "Yes" : "No" %>
+      <% if (qna.plus_one_note) { %>
+        – <%= qna.plus_one_note %>
+      <% } %>
+    </p>
+
+    <p>
+      <strong>Are kids allowed?</strong><br />
+      <%= qna.kids_allowed ? "Yes" : "No" %>
+      <% if (qna.kids_note) { %>
+        – <%= qna.kids_note %>
+      <% } %>
+    </p>
+  </section>
+<% } %>
+<!-- Q & A -->
+
+<!-- RSVP Section -->
+ <hr />
+<section>
+  <h2>RSVP</h2>
+  <p>Please let us know if you’ll be joining us.</p>
+
+  <a href="/rsvp/<%= wedding.slug %>">
+    <button>RSVP Here</button>
+  </a>
+</section>
+
+
+
+  <% } %>
+
+</body>
+</html>

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Edit Wedding</title>
+</head>
+<body>
+    <%
+    const partySection = sections?.find(s => s.type === 'wedding_party');
+    const party = partySection ? partySection.content : {};
+    const story = sections?.find(s => s.type === 'story');
+    const eventsSection = sections?.find(s => s.type === 'events');
+    const events = eventsSection ? eventsSection.content : {};
+    const qnaSection = sections?.find(s => s.type === 'qna');
+    const qna = qnaSection ? qnaSection.content : {};
+    %>
+
+  <h1>Edit Wedding</h1>
+
+  <p>
+    <strong>Public URL:</strong>
+    <a href="/w/<%= wedding.slug %>" target="_blank">
+      /w/<%= wedding.slug %>
+    </a>
+  </p>
+
+  <form method="POST" action="/edit/<%= token %>">
+    <input
+      type="text"
+      name="bride_name"
+      value="<%= wedding.bride_name %>"
+      required
+    />
+
+    <input
+      type="text"
+      name="groom_name"
+      value="<%= wedding.groom_name %>"
+      required
+    />
+
+    <input
+      type="date"
+      name="event_date"
+      value="<%= wedding.event_date.toISOString().split('T')[0] %>"
+      required
+    />
+
+    <input
+      type="text"
+      name="location"
+      value="<%= wedding.location %>"
+      required
+    />
+
+<hr />
+
+    <h2>Our Story</h2>
+
+    <textarea
+  name="story"
+  rows="8"
+><%= story?.content?.body || "" %></textarea>
+
+
+    <hr />
+<h2>Events</h2>
+
+<hr />
+<h2>Events</h2>
+
+<h3>Traditional Wedding</h3>
+<input type="date" name="traditional_date" value="<%= events.traditional?.date || '' %>" />
+<input type="time" name="traditional_time" value="<%= events.traditional?.time || '' %>" />
+<input type="text" name="traditional_venue" placeholder="Venue" value="<%= events.traditional?.venue || '' %>" />
+<input type="text" name="traditional_dress_code" placeholder="Dress code" value="<%= events.traditional?.dress_code || '' %>" />
+
+<h3>White Wedding</h3>
+<input type="date" name="white_date" value="<%= events.white?.date || '' %>" />
+<input type="time" name="white_time" value="<%= events.white?.time || '' %>" />
+<input type="text" name="white_venue" placeholder="Venue" value="<%= events.white?.venue || '' %>" />
+<input type="text" name="white_dress_code" placeholder="Dress code" value="<%= events.white?.dress_code || '' %>" />
+
+<h3>Reception</h3>
+<input type="date" name="reception_date" value="<%= events.reception?.date || '' %>" />
+<input type="time" name="reception_time" value="<%= events.reception?.time || '' %>" />
+<input type="text" name="reception_venue" placeholder="Venue" value="<%= events.reception?.venue || '' %>" />
+<input type="text" name="reception_dress_code" placeholder="Dress code" value="<%= events.reception?.dress_code || '' %>" />
+
+<hr />
+<h2>Wedding Party</h2>
+
+<h3>Maid of Honor</h3>
+<input name="moh_name" placeholder="Name"
+  value="<%= party.maid_of_honor?.name || '' %>" />
+<textarea name="moh_about"
+  placeholder="About"><%= party.maid_of_honor?.about || '' %></textarea>
+
+<h3>Best Man</h3>
+<input name="bm_name" placeholder="Name"
+  value="<%= party.best_man?.name || '' %>" />
+<textarea name="bm_about"
+  placeholder="About"><%= party.best_man?.about || '' %></textarea>
+
+<h3>Bridesmaids</h3>
+<% (party.bridesmaids || []).forEach((b, i) => { %>
+  <input name="bridesmaids_name_<%= i %>"
+    placeholder="Name"
+    value="<%= b.name || '' %>" />
+  <textarea name="bridesmaids_about_<%= i %>"
+    placeholder="About"><%= b.about || '' %></textarea>
+<% }) %>
+
+<h3>Groomsmen</h3>
+<% (party.groomsmen || []).forEach((g, i) => { %>
+  <input name="groomsmen_name_<%= i %>"
+    placeholder="Name"
+    value="<%= g.name || '' %>" />
+  <textarea name="groomsmen_about_<%= i %>"
+    placeholder="About"><%= g.about || '' %></textarea>
+<% }) %>
+
+<hr />
+<h2>Q & A</h2>
+
+<label>
+  <input
+    type="checkbox"
+    name="plus_one_allowed"
+    value="true"
+    <%= qna.plus_one_allowed ? 'checked' : '' %>
+  />
+  Can guests bring a plus one?
+</label>
+
+<br />
+<textarea
+  name="plus_one_note"
+  placeholder="Optional note"
+><%= qna.plus_one_note || '' %></textarea>
+
+<br /><br />
+
+<label>
+  <input
+    type="checkbox"
+    name="kids_allowed"
+    value="true"
+    <%= qna.kids_allowed ? 'checked' : '' %>
+  />
+  Are kids allowed?
+</label>
+
+<br />
+<textarea
+  name="kids_note"
+  placeholder="Optional note"
+><%= qna.kids_note || '' %></textarea>
+
+
+
+
+    <button type="submit">Save Changes</button>
+  </form>
+</body>
+</html>
