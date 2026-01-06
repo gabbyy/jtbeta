@@ -4,6 +4,11 @@ const path = require("path");
 
 const app = express(); // 👈 app MUST be defined first
 
+app.get("/", (req, res) => {
+  res.render("index");
+});
+
+
 // middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

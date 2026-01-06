@@ -1,15 +1,11 @@
 {
   "name": "jt",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "main": "src/server.js",
   "scripts": {
     "dev": "nodemon src/server.js",
-  "start": "node src/server.js"
+    "start": "node src/server.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "type": "commonjs",
   "dependencies": {
     "dotenv": "^17.2.3",
@@ -22,4 +18,3 @@
     "nodemon": "^3.1.11"
   }
 }
-
