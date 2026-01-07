@@ -9,3 +9,6 @@ pool.on("connect", () => {
 });
 
 module.exports = pool; // 👈 THIS LINE IS REQUIRED
+
+console.log("DATABASE_URL exists?", !!process.env.DATABASE_URL);
+console.log("DATABASE_URL preview:", process.env.DATABASE_URL?.slice(0, 20));
